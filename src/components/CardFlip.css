@@ -29,21 +29,11 @@
   justify-content: center;
 }
 
-.card-image {
+.card-image-real {
   width: 100%;
   height: 100%;
-  position: relative;
-  background: #F3F4F6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card-image.placeholder::after {
-  content: 'Imagen de tarjeta';
-  color: #9CA3AF;
-  font-size: 14px;
-  font-weight: 500;
+  object-fit: cover;
+  border-radius: 16px;
 }
 
 

@@ -12,9 +12,11 @@ const CardFlip = ({ isFlipped }) => {
       >
         {/* Frente de la tarjeta */}
         <div className="card-face card-front">
-          <div className="card-image placeholder">
-            {/* Placeholder temporal - se reemplazará con la imagen real */}
-          </div>
+          <img 
+            src="/card-image.png" 
+            alt="Tarjeta de débito" 
+            className="card-image-real"
+          />
         </div>
 
         {/* Reverso de la tarjeta */}
