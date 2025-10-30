@@ -1,16 +1,76 @@
-# React + Vite
+# Pantalla de Pedido de Tarjeta de Débito con Flip
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación React que implementa una pantalla de pedido de tarjeta de débito física con animación de flip usando Framer Motion.
 
-Currently, two official plugins are available:
+## 🚀 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Diseño fiel a Figma
+- Animación de flip 3D con Framer Motion
+- Feedback contextual sin cambio de pantalla
+- UI moderna y responsiva
 
-## React Compiler
+## 📦 Tecnologías
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 18
+- Vite
+- Framer Motion
+- CSS3
 
-## Expanding the ESLint configuration
+## 🛠️ Instalación y Desarrollo
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Instalar dependencias
+```bash
+npm install
+```
+
+### Ejecutar en desarrollo
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en: **http://localhost:5173**
+
+### Build para producción
+```bash
+npm run build
+```
+
+## 🌐 Deployment
+
+### GitHub
+
+1. Crea un nuevo repositorio en GitHub (sin README, .gitignore o licencia)
+2. Conecta tu repositorio local:
+```bash
+git remote add origin https://github.com/tu-usuario/debit-card-flip.git
+git branch -M main
+git push -u origin main
+```
+
+### Render
+
+1. Ve a [render.com](https://render.com) e inicia sesión
+2. Click en "New +" y selecciona "Static Site"
+3. Conecta tu repositorio de GitHub
+4. Configura los siguientes valores:
+   - **Name**: `debit-card-flip` (o el nombre que prefieras)
+   - **Branch**: `main`
+   - **Build Command**: `npm install && npm run build`
+   - **Publish Directory**: `dist`
+5. Click en "Create Static Site"
+
+Render creará automáticamente un deploy y te dará una URL pública como:
+`https://debit-card-flip.onrender.com`
+
+Cada vez que hagas push a la rama `main`, Render hará un deploy automático.
+
+## 📱 Uso
+
+1. La pantalla muestra una tarjeta de débito en 3D
+2. Al hacer click en "Pedir cartão grátis", la tarjeta hace un flip
+3. El reverso muestra un check indicando que la solicitud fue exitosa
+4. La transición es suave y natural sin cambio de pantalla
+
+## 📄 Licencia
+
+MIT
