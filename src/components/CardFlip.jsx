@@ -12,23 +12,8 @@ const CardFlip = ({ isFlipped }) => {
       >
         {/* Frente de la tarjeta */}
         <div className="card-face card-front">
-          <div className="card-image">
-            <div className="card-content">
-              <div className="card-text">
-                <span className="card-text-large">MEU</span>
-                <span className="card-text-large">CARTÃO</span>
-                <span className="card-text-large">DE PAGO</span>
-              </div>
-              <div className="card-footer">
-                <div className="card-icon">
-                  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="24" cy="24" r="22" stroke="white" strokeWidth="2" fill="none"/>
-                    <path d="M16 24C16 24 18 20 24 20C30 20 32 24 32 24M18 28L24 24L30 28" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <div className="card-logo">VISA</div>
-              </div>
-            </div>
+          <div className="card-image placeholder">
+            {/* Placeholder temporal - se reemplazará con la imagen real */}
           </div>
         </div>
 
