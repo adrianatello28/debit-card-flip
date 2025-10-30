@@ -16,7 +16,7 @@ const DebitCardScreen = () => {
         <div className="status-left">
           <span className="time">9:30</span>
         </div>
-        <div className="dynamic-island"></div>
+        <div className="camera-notch"></div>
         <div className="status-right">
           <svg className="cellular-icon" viewBox="0 0 18 12" fill="none">
             <rect x="0" y="8" width="2" height="4" rx="0.5" fill="currentColor"/>
