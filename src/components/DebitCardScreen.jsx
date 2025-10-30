@@ -41,13 +41,7 @@ const DebitCardScreen = () => {
         <div className="address-section">
           <div className="address-content">
             <div className="truck-icon">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 3H16V15H1V3Z" stroke="#6B7280" strokeWidth="2" strokeLinejoin="round"/>
-                <path d="M16 8H19L23 12V15H16V8Z" stroke="#6B7280" strokeWidth="2" strokeLinejoin="round"/>
-                <circle cx="5.5" cy="18.5" r="2.5" stroke="#6B7280" strokeWidth="2"/>
-                <circle cx="18.5" cy="18.5" r="2.5" stroke="#6B7280" strokeWidth="2"/>
-                <path d="M16 15V18.5" stroke="#6B7280" strokeWidth="2"/>
-              </svg>
+              <img src="/camion.png" alt="Camión de entrega" />
             </div>
             <div className="address-details">
               <div className="address-label">Endereço de entrega</div>
