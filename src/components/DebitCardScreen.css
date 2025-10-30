@@ -19,34 +19,59 @@
   position: relative;
 }
 
-/* Status bar */
-.status-bar {
+/* Status bar iOS */
+.status-bar-ios {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 24px;
-  height: 48px;
+  padding: 8px 20px;
+  height: 54px;
+  position: relative;
+}
+
+.status-left,
+.status-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.status-right {
+  justify-content: flex-end;
+  gap: 6px;
 }
 
 .time {
   font-size: 15px;
   font-weight: 600;
   color: #1F2937;
+  letter-spacing: -0.3px;
 }
 
-.status-icons {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.signal-icon,
-.wifi-icon,
-.battery-icon {
-  width: 20px;
-  height: 12px;
+.dynamic-island {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 37px;
   background-color: #1F2937;
-  border-radius: 2px;
+  border-radius: 20px;
+  z-index: 1;
+}
+
+.cellular-icon,
+.wifi-icon {
+  width: 17px;
+  height: 12px;
+  color: #1F2937;
+}
+
+.battery-icon {
+  width: 25px;
+  height: 12px;
+  color: #1F2937;
 }
 
 /* Progress bar */
@@ -213,6 +238,23 @@
 
 .cancel-button:hover {
   opacity: 0.8;
+}
+
+/* Bottom navigation iOS */
+.bottom-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0 12px;
+  background-color: #FFFFFF;
+}
+
+.home-indicator {
+  width: 134px;
+  height: 5px;
+  background-color: #1F2937;
+  border-radius: 3px;
+  opacity: 0.3;
 }
 
 /* Responsive adjustments */
