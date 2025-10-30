@@ -3,7 +3,8 @@
 }
 
 .debit-card-screen {
-  min-height: 100vh;
+  width: 360px;
+  height: 800px;
   background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
@@ -12,6 +13,10 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0 auto;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  position: relative;
 }
 
 /* Status bar */
@@ -75,7 +80,7 @@
 
 /* Title */
 .title {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   line-height: 1.2;
   color: #1F2937;

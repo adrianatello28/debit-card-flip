@@ -25,10 +25,18 @@
 body {
   margin: 0;
   display: flex;
-  min-width: 320px;
+  align-items: center;
+  justify-content: center;
+  min-width: 100vw;
   min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 #root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  min-height: 100vh;
+  padding: 20px;
 }
