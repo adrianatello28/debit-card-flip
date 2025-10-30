@@ -78,8 +78,8 @@
 .progress-container {
   display: flex;
   gap: 8px;
-  padding: 0 16px;
-  margin-bottom: 20px;
+  width: 120px;
+  margin: 0 auto 20px;
 }
 
 .progress-bar {
