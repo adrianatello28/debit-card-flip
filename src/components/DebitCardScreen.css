@@ -93,9 +93,6 @@
   display: flex;
   gap: 16px;
   align-items: flex-start;
-  padding: 16px;
-  background-color: #F9FAFB;
-  border-radius: 12px;
 }
 
 .address-content {
