@@ -118,3 +118,7 @@
   height: 80px;
 }
 
+.check-icon path {
+  stroke: #434CE4;
+}
+

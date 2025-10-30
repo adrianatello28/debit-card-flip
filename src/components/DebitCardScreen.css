@@ -66,7 +66,7 @@
 }
 
 .progress-bar.active {
-  background-color: #4F46E5;
+  background-color: #434CE4;
 }
 
 /* Main content */
@@ -137,7 +137,7 @@
   flex-shrink: 0;
   padding: 8px 16px;
   background-color: #E0E7FF;
-  color: #4F46E5;
+  color: #434CE4;
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -159,7 +159,7 @@
 }
 
 .terms-link {
-  color: #4F46E5;
+  color: #434CE4;
   text-decoration: none;
   font-weight: 500;
 }
@@ -172,7 +172,7 @@
 .request-button {
   width: 100%;
   padding: 16px;
-  background-color: #4F46E5;
+  background-color: #434CE4;
   color: white;
   border: none;
   border-radius: 12px;
@@ -183,9 +183,9 @@
 }
 
 .request-button:hover:not(:disabled) {
-  background-color: #4338CA;
+  background-color: #3840C7;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 4px 12px rgba(67, 76, 228, 0.3);
 }
 
 .request-button:disabled {
@@ -197,7 +197,7 @@
   width: 100%;
   padding: 16px;
   background-color: transparent;
-  color: #4F46E5;
+  color: #434CE4;
   border: none;
   font-size: 16px;
   font-weight: 600;
