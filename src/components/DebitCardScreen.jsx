@@ -14,7 +14,6 @@ const DebitCardScreen = () => {
       navigator.vibrate(50);
     }
     
-    console.log('🔄 Cambio de estado - Nuevo layout aplicado');
     setIsFlipped(true);
   };
 
