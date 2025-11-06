@@ -4,11 +4,27 @@ import Lottie from 'lottie-react';
 import checkAnimation from '../assets/congrats-andes-x.json';
 import './DebitCardScreen.css';
 
-// Constantes para el morph del botón
-const MORPH_TIMING = {
-  buttonToCircle: 0.6,        // Duración del morph
-  checkAppear: 0.4,           // Duración de aparición del check
-  checkDelay: 0.3,            // Delay antes de mostrar el check
+// Constantes para animación con sensación de scroll
+const SCROLL_ANIMATION = {
+  // Fase 1: Compresión del botón
+  buttonPress: { duration: 0.15 },
+  
+  // Fase 2: Morph + movimiento paralelo
+  buttonToCircle: { duration: 0.5 },
+  contentSlideUp: { distance: 48, duration: 0.5 },     // Contenido sube 48px
+  cardParallax: { distance: 12, duration: 0.5 },       // Tarjeta sube 12px (parallax)
+  
+  // Fase 3: Check aparece
+  checkAppear: { duration: 0.4, delay: 0.6 },
+  
+  // Fase 4: Feedback desde abajo
+  feedbackAppear: { duration: 0.5, delay: 1.1, distance: 24 },
+};
+
+// Easing principal: ease-in-out-quint
+const EASING = {
+  quintInOut: [0.83, 0, 0.17, 1],
+  smooth: [0.16, 1, 0.3, 1],
 };
 
 const DebitCardScreen = () => {
@@ -59,95 +75,143 @@ const DebitCardScreen = () => {
 
         {/* Main content */}
         <div className="main-content">
-          {/* Card image - Estática */}
-          <div className="card-container">
+          {/* Card image - Con parallax sutil (sube 12px) */}
+          <motion.div 
+            className="card-container"
+            animate={{
+              y: showCheck ? -SCROLL_ANIMATION.cardParallax.distance : 0
+            }}
+            transition={{
+              duration: SCROLL_ANIMATION.cardParallax.duration,
+              ease: EASING.quintInOut
+            }}
+          >
             <img 
               src="/card-image.png" 
               alt="Tarjeta de débito" 
               className="card-static"
             />
-          </div>
+          </motion.div>
 
-          {/* Title */}
-          <h1 className="title">
-            Peça seu cartão de débito físico grátis
-          </h1>
+          {/* Contenedor de contenido que sube y desaparece */}
+          <motion.div
+            animate={{
+              y: showCheck ? -SCROLL_ANIMATION.contentSlideUp.distance : 0,
+              opacity: showCheck ? 0 : 1
+            }}
+            transition={{
+              duration: SCROLL_ANIMATION.contentSlideUp.duration,
+              ease: EASING.quintInOut
+            }}
+          >
+            {/* Title */}
+            <h1 className="title">
+              Peça seu cartão de débito físico grátis
+            </h1>
 
-          {/* Address section */}
-          <div className="address-section">
-            <div className="address-content">
-              <div className="truck-icon">
-                <img src="/camion.png" alt="Camión de entrega" />
-              </div>
-              <div className="address-details">
-                <div className="address-label">Endereço de entrega</div>
-                <div className="address-text">
-                  Rua General Artigas, 67, Cobertura 01, Leblon, CEP: 2...
+            {/* Address section */}
+            <div className="address-section">
+              <div className="address-content">
+                <div className="truck-icon">
+                  <img src="/camion.png" alt="Camión de entrega" />
+                </div>
+                <div className="address-details">
+                  <div className="address-label">Endereço de entrega</div>
+                  <div className="address-text">
+                    Rua General Artigas, 67, Cobertura 01, Leblon, CEP: 2...
+                  </div>
                 </div>
               </div>
+              <button className="alter-button">Alterar</button>
             </div>
-            <button className="alter-button">Alterar</button>
-          </div>
 
-          {/* Terms text */}
-          <div className="terms-text">
-            Ao continuar, você aceita os{' '}
-            <a href="#" className="terms-link">
-              Termos e Condições
-            </a>{' '}
-            do cartão de débito.
-          </div>
+            {/* Terms text */}
+            <div className="terms-text">
+              Ao continuar, você aceita os{' '}
+              <a href="#" className="terms-link">
+                Termos e Condições
+              </a>{' '}
+              do cartão de débito.
+            </div>
+          </motion.div>
 
           {/* Botón principal con morph a círculo */}
           {!showCheck ? (
             <motion.button 
-              layoutId="button-morph"
               className="request-button"
               onClick={handleRequestCard}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ 
+                scale: 0.96,
+                transition: { duration: SCROLL_ANIMATION.buttonPress.duration }
+              }}
             >
               Pedir cartão grátis
             </motion.button>
           ) : (
             <motion.div
-              layoutId="button-morph"
               className="button-circle-check"
-              initial={{ borderRadius: 12 }}
-              animate={{ borderRadius: '50%' }}
+              initial={{ borderRadius: 12, width: '100%' }}
+              animate={{ 
+                borderRadius: '50%',
+                width: 120,
+                marginLeft: 0
+              }}
               transition={{ 
-                duration: MORPH_TIMING.buttonToCircle,
-                ease: [0.65, 0, 0.35, 1]
+                duration: SCROLL_ANIMATION.buttonToCircle.duration,
+                ease: EASING.quintInOut
               }}
             >
               <motion.div
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{
-                  delay: MORPH_TIMING.checkDelay,
-                  duration: MORPH_TIMING.checkAppear,
-                  ease: [0.34, 1.56, 0.64, 1]
+                  delay: SCROLL_ANIMATION.checkAppear.delay,
+                  duration: SCROLL_ANIMATION.checkAppear.duration,
+                  ease: EASING.smooth
                 }}
               >
                 <Lottie
                   animationData={checkAnimation}
                   loop={false}
-                  style={{ width: '80px', height: '80px' }}
+                  style={{ width: '64px', height: '64px' }}
                 />
               </motion.div>
             </motion.div>
           )}
 
-          {/* Botón secundario - Desaparece */}
+          {/* Botón secundario - Desaparece rápido */}
           <motion.button 
             className="cancel-button"
             animate={{ 
               opacity: showCheck ? 0 : 1,
-              height: showCheck ? 0 : 'auto'
+              y: showCheck ? -20 : 0
             }}
-            transition={{ duration: 0.3 }}
+            transition={{ 
+              duration: 0.3,
+              ease: EASING.quintInOut
+            }}
           >
             Agora não
           </motion.button>
+
+          {/* Feedback aparece desde abajo */}
+          {showCheck && (
+            <motion.div
+              className="feedback-scroll-container"
+              initial={{ opacity: 0, y: SCROLL_ANIMATION.feedbackAppear.distance }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: SCROLL_ANIMATION.feedbackAppear.delay,
+                duration: SCROLL_ANIMATION.feedbackAppear.duration,
+                ease: EASING.quintInOut
+              }}
+            >
+              <h1 className="feedback-title-scroll">Listo!</h1>
+              <p className="feedback-message-scroll">
+                Vamos te avisar quando o cartão for enviado
+              </p>
+            </motion.div>
+          )}
         </div>
       </div>
 
