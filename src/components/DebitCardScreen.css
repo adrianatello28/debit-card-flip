@@ -118,7 +118,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 8px;
   padding: 0;
 }
 
@@ -129,6 +129,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  margin-bottom: -8px;
 }
 
 /* Feedback text after flip */
