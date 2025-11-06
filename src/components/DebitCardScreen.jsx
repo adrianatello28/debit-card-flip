@@ -7,26 +7,34 @@ import './DebitCardScreen.css';
 
 // Constantes de timing para animaciones
 const ANIMATION_TIMING = {
-  // Desaparición jerárquica del contenido
-  secondaryTextFade: { duration: 0.2, delay: 0 },           // Texto secundario primero
-  titleFadeUp: { duration: 0.3, delay: 0.1 },               // Título después
-  buttonTransform: { duration: 0.35, delay: 0.2 },          // Botón al final
+  // Desaparición jerárquica del contenido (más rápido y escalonado)
+  secondaryTextFade: { duration: 0.18, delay: 0 },          // Texto secundario primero
+  titleFadeUp: { duration: 0.25, delay: 0.08 },             // Título después
+  buttonTransform: { duration: 0.3, delay: 0.15 },          // Botón al final
   
   // Flip de la tarjeta
   cardFlip: { duration: 0.8, delay: 0 },
   
-  // Aparición del feedback
-  feedbackDelay: 0.9,                                        // Delay antes del feedback
-  checkAppear: { duration: 0.5, delay: 0.2 },               // Check con bounce
-  textAppear: { duration: 0.4, delay: 0.3 },
+  // Aparición del feedback (timing optimizado)
+  feedbackDelay: 0.85,                                       // Delay antes del feedback
+  checkAppear: { duration: 0.55, delay: 0.15 },             // Check con bounce pronunciado
+  textAppear: { duration: 0.35, delay: 0.35 },              // Texto después del check
 };
 
 // Curvas de animación personalizadas
 const EASING = {
   smoothOut: [0.16, 1, 0.3, 1],                             // ease-out suave
-  bounce: [0.34, 1.56, 0.64, 1],                            // bounce sutil
+  bounce: [0.34, 1.56, 0.64, 1],                            // bounce sutil pero visible
   inOut: [0.65, 0, 0.35, 1],                                // ease-in-out
 };
+
+// Timing total aproximado: 1.9 segundos
+// 0.0s: Click → Contenido empieza a desaparecer
+// 0.0s-0.8s: Flip de la tarjeta con anticipation
+// 0.85s: Aparece contenedor del feedback
+// 1.0s: Check aparece con bounce
+// 1.35s: Texto aparece
+// 1.7s: Animación completa
 
 const DebitCardScreen = () => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -68,11 +76,14 @@ const DebitCardScreen = () => {
 
       {/* Content container */}
       <div className="content-container">
-        {/* Progress bar */}
+        {/* Progress bar - Desaparece rápido */}
         <motion.div 
           className="progress-container"
           animate={{ opacity: isFlipped ? 0 : 1 }}
-          transition={{ duration: 0.4 }}
+          transition={{ 
+            duration: 0.2,
+            ease: EASING.smoothOut 
+          }}
         >
           <div className="progress-bar active"></div>
           <div className="progress-bar"></div>
@@ -100,26 +111,45 @@ const DebitCardScreen = () => {
             {isFlipped && (
               <motion.div
                 className="feedback-complete-container"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: ANIMATION_TIMING.feedbackDelay }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.8 }}
               >
-                {/* Check animation */}
-                <div className="feedback-lottie">
+                {/* Check animation con bounce */}
+                <motion.div 
+                  className="feedback-lottie"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{
+                    delay: ANIMATION_TIMING.feedbackDelay + ANIMATION_TIMING.checkAppear.delay,
+                    duration: ANIMATION_TIMING.checkAppear.duration,
+                    ease: EASING.bounce,
+                    opacity: { duration: 0.2 }
+                  }}
+                >
                   <Lottie
                     animationData={checkAnimation}
                     loop={false}
                     style={{ width: '96px', height: '96px' }}
                   />
-                </div>
+                </motion.div>
                 
-                {/* Texto */}
-                <div className="feedback-text-container">
+                {/* Texto con entrada suave */}
+                <motion.div 
+                  className="feedback-text-container"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: ANIMATION_TIMING.feedbackDelay + ANIMATION_TIMING.textAppear.delay,
+                    duration: ANIMATION_TIMING.textAppear.duration,
+                    ease: EASING.smoothOut
+                  }}
+                >
                   <h1 className="feedback-title">Listo!</h1>
                   <p className="feedback-message">
                     Vamos te avisar quando o cartão for enviado
                   </p>
-                </div>
+                </motion.div>
               </motion.div>
             )}
           </div>
