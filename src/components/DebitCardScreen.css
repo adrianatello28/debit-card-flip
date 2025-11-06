@@ -111,6 +111,8 @@
   flex-direction: column;
   align-items: center;
   gap: 24px;
+  position: relative;
+  min-height: 220px;
 }
 
 /* Feedback complete container - Nuevo layout */
@@ -120,6 +122,10 @@
   align-items: flex-start;
   gap: 8px;
   padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 /* Lottie del check en feedback */
@@ -130,6 +136,7 @@
   align-items: center;
   justify-content: flex-start;
   margin-bottom: -8px;
+  margin-left: -8px;
 }
 
 /* Feedback text after flip */
