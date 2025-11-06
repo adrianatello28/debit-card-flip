@@ -1,43 +1,18 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Lottie from 'lottie-react';
-import CardFlip from './CardFlip';
 import checkAnimation from '../assets/congrats-andes-x.json';
 import './DebitCardScreen.css';
 
-// Constantes de timing para animaciones
-const ANIMATION_TIMING = {
-  // Desaparición jerárquica del contenido (más rápido y escalonado)
-  secondaryTextFade: { duration: 0.18, delay: 0 },          // Texto secundario primero
-  titleFadeUp: { duration: 0.25, delay: 0.08 },             // Título después
-  buttonTransform: { duration: 0.3, delay: 0.15 },          // Botón al final
-  
-  // Flip de la tarjeta
-  cardFlip: { duration: 0.8, delay: 0 },
-  
-  // Aparición del feedback (timing optimizado)
-  feedbackDelay: 0.85,                                       // Delay antes del feedback
-  checkAppear: { duration: 0.55, delay: 0.15 },             // Check con bounce pronunciado
-  textAppear: { duration: 0.35, delay: 0.35 },              // Texto después del check
+// Constantes para el morph del botón
+const MORPH_TIMING = {
+  buttonToCircle: 0.6,        // Duración del morph
+  checkAppear: 0.4,           // Duración de aparición del check
+  checkDelay: 0.3,            // Delay antes de mostrar el check
 };
-
-// Curvas de animación personalizadas
-const EASING = {
-  smoothOut: [0.16, 1, 0.3, 1],                             // ease-out suave
-  bounce: [0.34, 1.56, 0.64, 1],                            // bounce sutil pero visible
-  inOut: [0.65, 0, 0.35, 1],                                // ease-in-out
-};
-
-// Timing total aproximado: 1.9 segundos
-// 0.0s: Click → Contenido empieza a desaparecer
-// 0.0s-0.8s: Flip de la tarjeta con anticipation
-// 0.85s: Aparece contenedor del feedback
-// 1.0s: Check aparece con bounce
-// 1.35s: Texto aparece
-// 1.7s: Animación completa
 
 const DebitCardScreen = () => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [showCheck, setShowCheck] = useState(false);
 
   const handleRequestCard = () => {
     // Haptic feedback if available
@@ -45,7 +20,7 @@ const DebitCardScreen = () => {
       navigator.vibrate(50);
     }
     
-    setIsFlipped(true);
+    setShowCheck(true);
   };
 
   return (
@@ -76,111 +51,30 @@ const DebitCardScreen = () => {
 
       {/* Content container */}
       <div className="content-container">
-        {/* Progress bar - Desaparece rápido */}
-        <motion.div 
-          className="progress-container"
-          animate={{ opacity: isFlipped ? 0 : 1 }}
-          transition={{ 
-            duration: 0.2,
-            ease: EASING.smoothOut 
-          }}
-        >
+        {/* Progress bar */}
+        <div className="progress-container">
           <div className="progress-bar active"></div>
           <div className="progress-bar"></div>
-        </motion.div>
+        </div>
 
         {/* Main content */}
         <div className="main-content">
-          {/* Card flip component y feedback en el mismo contenedor */}
-          <div className="card-and-feedback">
-            {/* La tarjeta siempre está montada, solo oculta después del flip */}
-            <motion.div
-              animate={{ 
-                opacity: isFlipped ? 0 : 1,
-                pointerEvents: isFlipped ? 'none' : 'auto'
-              }}
-              transition={{ 
-                opacity: { duration: 0, delay: 1.1 },  // Se oculta después del flip completo
-                pointerEvents: { duration: 0, delay: 1.1 }
-              }}
-            >
-              <CardFlip isFlipped={isFlipped} />
-            </motion.div>
-            
-            {/* Feedback completo - Aparece después del flip */}
-            {isFlipped && (
-              <motion.div
-                className="feedback-complete-container"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.8 }}
-              >
-                {/* Check animation con bounce */}
-                <motion.div 
-                  className="feedback-lottie"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{
-                    delay: ANIMATION_TIMING.feedbackDelay + ANIMATION_TIMING.checkAppear.delay,
-                    duration: ANIMATION_TIMING.checkAppear.duration,
-                    ease: EASING.bounce,
-                    opacity: { duration: 0.2 }
-                  }}
-                >
-                  <Lottie
-                    animationData={checkAnimation}
-                    loop={false}
-                    style={{ width: '96px', height: '96px' }}
-                  />
-                </motion.div>
-                
-                {/* Texto con entrada suave */}
-                <motion.div 
-                  className="feedback-text-container"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: ANIMATION_TIMING.feedbackDelay + ANIMATION_TIMING.textAppear.delay,
-                    duration: ANIMATION_TIMING.textAppear.duration,
-                    ease: EASING.smoothOut
-                  }}
-                >
-                  <h1 className="feedback-title">Listo!</h1>
-                  <p className="feedback-message">
-                    Vamos te avisar quando o cartão for enviado
-                  </p>
-                </motion.div>
-              </motion.div>
-            )}
+          {/* Card image - Estática */}
+          <div className="card-container">
+            <img 
+              src="/card-image.png" 
+              alt="Tarjeta de débito" 
+              className="card-static"
+            />
           </div>
 
-          {/* Title - Se desvanece con movimiento hacia arriba */}
-          <motion.h1 
-            className="title"
-            animate={{ 
-              opacity: isFlipped ? 0 : 1, 
-              y: isFlipped ? -12 : 0 
-            }}
-            transition={{ 
-              ...ANIMATION_TIMING.titleFadeUp,
-              ease: EASING.smoothOut 
-            }}
-          >
+          {/* Title */}
+          <h1 className="title">
             Peça seu cartão de débito físico grátis
-          </motion.h1>
+          </h1>
 
-          {/* Address section - Texto secundario, se desvanece primero */}
-          <motion.div 
-            className="address-section"
-            animate={{ 
-              opacity: isFlipped ? 0 : 1, 
-              y: isFlipped ? -8 : 0 
-            }}
-            transition={{ 
-              ...ANIMATION_TIMING.secondaryTextFade,
-              ease: EASING.smoothOut 
-            }}
-          >
+          {/* Address section */}
+          <div className="address-section">
             <div className="address-content">
               <div className="truck-icon">
                 <img src="/camion.png" alt="Camión de entrega" />
@@ -193,54 +87,64 @@ const DebitCardScreen = () => {
               </div>
             </div>
             <button className="alter-button">Alterar</button>
-          </motion.div>
+          </div>
 
-          {/* Terms text - Texto secundario, se desvanece primero */}
-          <motion.div 
-            className="terms-text"
-            animate={{ 
-              opacity: isFlipped ? 0 : 1 
-            }}
-            transition={{ 
-              ...ANIMATION_TIMING.secondaryTextFade,
-              ease: EASING.smoothOut 
-            }}
-          >
+          {/* Terms text */}
+          <div className="terms-text">
             Ao continuar, você aceita os{' '}
             <a href="#" className="terms-link">
               Termos e Condições
             </a>{' '}
             do cartão de débito.
-          </motion.div>
+          </div>
 
-          {/* Action buttons - Se transforman al final */}
-          <motion.button 
-            className="request-button"
-            onClick={handleRequestCard}
-            disabled={isFlipped}
-            whileTap={{ scale: 0.95 }}
-            animate={{ 
-              opacity: isFlipped ? 0 : 1, 
-              scale: isFlipped ? 0.85 : 1 
-            }}
-            transition={{ 
-              ...ANIMATION_TIMING.buttonTransform,
-              ease: EASING.smoothOut 
-            }}
-          >
-            Pedir cartão grátis
-          </motion.button>
+          {/* Botón principal con morph a círculo */}
+          {!showCheck ? (
+            <motion.button 
+              layoutId="button-morph"
+              className="request-button"
+              onClick={handleRequestCard}
+              whileTap={{ scale: 0.95 }}
+            >
+              Pedir cartão grátis
+            </motion.button>
+          ) : (
+            <motion.div
+              layoutId="button-morph"
+              className="button-circle-check"
+              initial={{ borderRadius: 12 }}
+              animate={{ borderRadius: '50%' }}
+              transition={{ 
+                duration: MORPH_TIMING.buttonToCircle,
+                ease: [0.65, 0, 0.35, 1]
+              }}
+            >
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{
+                  delay: MORPH_TIMING.checkDelay,
+                  duration: MORPH_TIMING.checkAppear,
+                  ease: [0.34, 1.56, 0.64, 1]
+                }}
+              >
+                <Lottie
+                  animationData={checkAnimation}
+                  loop={false}
+                  style={{ width: '80px', height: '80px' }}
+                />
+              </motion.div>
+            </motion.div>
+          )}
 
+          {/* Botón secundario - Desaparece */}
           <motion.button 
             className="cancel-button"
             animate={{ 
-              opacity: isFlipped ? 0 : 1, 
-              scale: isFlipped ? 0.9 : 1 
+              opacity: showCheck ? 0 : 1,
+              height: showCheck ? 0 : 'auto'
             }}
-            transition={{ 
-              ...ANIMATION_TIMING.buttonTransform,
-              ease: EASING.smoothOut 
-            }}
+            transition={{ duration: 0.3 }}
           >
             Agora não
           </motion.button>
