@@ -5,6 +5,29 @@ import CardFlip from './CardFlip';
 import checkAnimation from '../assets/congrats-andes-x.json';
 import './DebitCardScreen.css';
 
+// Constantes de timing para animaciones
+const ANIMATION_TIMING = {
+  // Desaparición jerárquica del contenido
+  secondaryTextFade: { duration: 0.2, delay: 0 },           // Texto secundario primero
+  titleFadeUp: { duration: 0.3, delay: 0.1 },               // Título después
+  buttonTransform: { duration: 0.35, delay: 0.2 },          // Botón al final
+  
+  // Flip de la tarjeta
+  cardFlip: { duration: 0.8, delay: 0 },
+  
+  // Aparición del feedback
+  feedbackDelay: 0.9,                                        // Delay antes del feedback
+  checkAppear: { duration: 0.5, delay: 0.2 },               // Check con bounce
+  textAppear: { duration: 0.4, delay: 0.3 },
+};
+
+// Curvas de animación personalizadas
+const EASING = {
+  smoothOut: [0.16, 1, 0.3, 1],                             // ease-out suave
+  bounce: [0.34, 1.56, 0.64, 1],                            // bounce sutil
+  inOut: [0.65, 0, 0.35, 1],                                // ease-in-out
+};
+
 const DebitCardScreen = () => {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -91,20 +114,32 @@ const DebitCardScreen = () => {
             </motion.div>
           )}
 
-          {/* Title */}
+          {/* Title - Se desvanece con movimiento hacia arriba */}
           <motion.h1 
             className="title"
-            animate={{ opacity: isFlipped ? 0 : 1, y: isFlipped ? -20 : 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
+            animate={{ 
+              opacity: isFlipped ? 0 : 1, 
+              y: isFlipped ? -12 : 0 
+            }}
+            transition={{ 
+              ...ANIMATION_TIMING.titleFadeUp,
+              ease: EASING.smoothOut 
+            }}
           >
             Peça seu cartão de débito físico grátis
           </motion.h1>
 
-          {/* Address section */}
+          {/* Address section - Texto secundario, se desvanece primero */}
           <motion.div 
             className="address-section"
-            animate={{ opacity: isFlipped ? 0 : 1, y: isFlipped ? -20 : 0 }}
-            transition={{ duration: 0.4, delay: 0.15 }}
+            animate={{ 
+              opacity: isFlipped ? 0 : 1, 
+              y: isFlipped ? -8 : 0 
+            }}
+            transition={{ 
+              ...ANIMATION_TIMING.secondaryTextFade,
+              ease: EASING.smoothOut 
+            }}
           >
             <div className="address-content">
               <div className="truck-icon">
@@ -120,11 +155,16 @@ const DebitCardScreen = () => {
             <button className="alter-button">Alterar</button>
           </motion.div>
 
-          {/* Terms text */}
+          {/* Terms text - Texto secundario, se desvanece primero */}
           <motion.div 
             className="terms-text"
-            animate={{ opacity: isFlipped ? 0 : 1, y: isFlipped ? -20 : 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
+            animate={{ 
+              opacity: isFlipped ? 0 : 1 
+            }}
+            transition={{ 
+              ...ANIMATION_TIMING.secondaryTextFade,
+              ease: EASING.smoothOut 
+            }}
           >
             Ao continuar, você aceita os{' '}
             <a href="#" className="terms-link">
@@ -133,22 +173,34 @@ const DebitCardScreen = () => {
             do cartão de débito.
           </motion.div>
 
-          {/* Action buttons */}
+          {/* Action buttons - Se transforman al final */}
           <motion.button 
             className="request-button"
             onClick={handleRequestCard}
             disabled={isFlipped}
             whileTap={{ scale: 0.95 }}
-            animate={{ opacity: isFlipped ? 0 : 1, scale: isFlipped ? 0.9 : 1 }}
-            transition={{ duration: 0.4, delay: 0.25 }}
+            animate={{ 
+              opacity: isFlipped ? 0 : 1, 
+              scale: isFlipped ? 0.85 : 1 
+            }}
+            transition={{ 
+              ...ANIMATION_TIMING.buttonTransform,
+              ease: EASING.smoothOut 
+            }}
           >
             Pedir cartão grátis
           </motion.button>
 
           <motion.button 
             className="cancel-button"
-            animate={{ opacity: isFlipped ? 0 : 1, scale: isFlipped ? 0.9 : 1 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
+            animate={{ 
+              opacity: isFlipped ? 0 : 1, 
+              scale: isFlipped ? 0.9 : 1 
+            }}
+            transition={{ 
+              ...ANIMATION_TIMING.buttonTransform,
+              ease: EASING.smoothOut 
+            }}
           >
             Agora não
           </motion.button>
