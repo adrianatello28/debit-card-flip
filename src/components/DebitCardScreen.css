@@ -119,15 +119,15 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Círculo del morph del botón con check */
+/* Círculo del morph del botón con check (72x72px) */
 .button-circle-check {
-  height: 120px;
   background-color: #434CE4;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   flex-shrink: 0;
+  transform-origin: left center;
 }
 
 /* Feedback con estilo de scroll */

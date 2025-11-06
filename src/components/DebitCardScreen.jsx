@@ -144,22 +144,24 @@ const DebitCardScreen = () => {
                 scale: 0.96,
                 transition: { duration: SCROLL_ANIMATION.buttonPress.duration }
               }}
+              style={{ transformOrigin: 'left center' }}
             >
               Pedir cartão grátis
             </motion.button>
           ) : (
             <motion.div
               className="button-circle-check"
-              initial={{ borderRadius: 12, width: '100%' }}
+              initial={{ borderRadius: 12, width: '100%', height: 56 }}
               animate={{ 
                 borderRadius: '50%',
-                width: 120,
-                marginLeft: 0
+                width: 72,
+                height: 72
               }}
               transition={{ 
                 duration: SCROLL_ANIMATION.buttonToCircle.duration,
                 ease: EASING.quintInOut
               }}
+              style={{ transformOrigin: 'left center' }}
             >
               <motion.div
                 initial={{ scale: 0, opacity: 0 }}
@@ -173,7 +175,7 @@ const DebitCardScreen = () => {
                 <Lottie
                   animationData={checkAnimation}
                   loop={false}
-                  style={{ width: '64px', height: '64px' }}
+                  style={{ width: '48px', height: '48px' }}
                 />
               </motion.div>
             </motion.div>
