@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Lottie from 'lottie-react';
 import CardFlip from './CardFlip';
 import checkAnimation from '../assets/congrats-andes-x.json';
@@ -80,12 +80,20 @@ const DebitCardScreen = () => {
 
         {/* Main content */}
         <div className="main-content">
-          {/* Card flip component - Se oculta cuando isFlipped */}
-          {!isFlipped && (
-            <div className="card-and-feedback">
-              <CardFlip isFlipped={isFlipped} />
-            </div>
-          )}
+          {/* Card flip component - Siempre presente, controla su propia animación */}
+          <div className="card-and-feedback">
+            <AnimatePresence>
+              {!isFlipped && (
+                <motion.div
+                  key="card-wrapper"
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3, delay: 0.8 }}
+                >
+                  <CardFlip isFlipped={isFlipped} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           
           {/* Feedback completo - Aparece después del flip */}
           {isFlipped && (
@@ -93,7 +101,7 @@ const DebitCardScreen = () => {
               className="feedback-complete-container"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 }}
+              transition={{ duration: 0.4, delay: ANIMATION_TIMING.feedbackDelay }}
             >
               {/* Check animation */}
               <div className="feedback-lottie">
