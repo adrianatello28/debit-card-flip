@@ -80,47 +80,49 @@ const DebitCardScreen = () => {
 
         {/* Main content */}
         <div className="main-content">
-          {/* Card flip component - Siempre presente, controla su propia animación */}
+          {/* Card flip component y feedback en el mismo contenedor */}
           <div className="card-and-feedback">
-            <AnimatePresence>
-              {!isFlipped && (
-                <motion.div
-                  key="card-wrapper"
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3, delay: 0.8 }}
-                >
-                  <CardFlip isFlipped={isFlipped} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-          
-          {/* Feedback completo - Aparece después del flip */}
-          {isFlipped && (
+            {/* La tarjeta siempre está montada, solo oculta después del flip */}
             <motion.div
-              className="feedback-complete-container"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: ANIMATION_TIMING.feedbackDelay }}
+              animate={{ 
+                opacity: isFlipped ? 0 : 1,
+                pointerEvents: isFlipped ? 'none' : 'auto'
+              }}
+              transition={{ 
+                opacity: { duration: 0, delay: 1.1 },  // Se oculta después del flip completo
+                pointerEvents: { duration: 0, delay: 1.1 }
+              }}
             >
-              {/* Check animation */}
-              <div className="feedback-lottie">
-                <Lottie
-                  animationData={checkAnimation}
-                  loop={false}
-                  style={{ width: '96px', height: '96px' }}
-                />
-              </div>
-              
-              {/* Texto */}
-              <div className="feedback-text-container">
-                <h1 className="feedback-title">Listo!</h1>
-                <p className="feedback-message">
-                  Vamos te avisar quando o cartão for enviado
-                </p>
-              </div>
+              <CardFlip isFlipped={isFlipped} />
             </motion.div>
-          )}
+            
+            {/* Feedback completo - Aparece después del flip */}
+            {isFlipped && (
+              <motion.div
+                className="feedback-complete-container"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: ANIMATION_TIMING.feedbackDelay }}
+              >
+                {/* Check animation */}
+                <div className="feedback-lottie">
+                  <Lottie
+                    animationData={checkAnimation}
+                    loop={false}
+                    style={{ width: '96px', height: '96px' }}
+                  />
+                </div>
+                
+                {/* Texto */}
+                <div className="feedback-text-container">
+                  <h1 className="feedback-title">Listo!</h1>
+                  <p className="feedback-message">
+                    Vamos te avisar quando o cartão for enviado
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </div>
 
           {/* Title - Se desvanece con movimiento hacia arriba */}
           <motion.h1 
