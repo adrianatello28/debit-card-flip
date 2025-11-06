@@ -1,6 +1,4 @@
 import { motion } from 'framer-motion';
-import Lottie from 'lottie-react';
-import checkAnimation from '../assets/congrats-andes-x.json';
 import './CardFlip.css';
 
 const CardFlip = ({ isFlipped }) => {
@@ -57,15 +55,9 @@ const CardFlip = ({ isFlipped }) => {
           />
         </div>
 
-        {/* Reverso de la tarjeta - Con Lottie */}
+        {/* Reverso de la tarjeta - Vacío, solo flip */}
         <div className="card-face card-back">
-          <div className="card-back-lottie">
-            <Lottie
-              animationData={checkAnimation}
-              loop={false}
-              style={{ width: '200px', height: '200px' }}
-            />
-          </div>
+          {/* El check ahora aparece en el feedback, no en la tarjeta */}
         </div>
       </motion.div>
     </div>
