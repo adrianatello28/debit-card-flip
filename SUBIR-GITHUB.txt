@@ -1,0 +1,48 @@
+========================================
+📦 COMANDOS PARA SUBIR A GITHUB
+========================================
+
+Copia y pega estos comandos UNO POR UNO en tu terminal:
+
+1️⃣ Ir al proyecto:
+----------------------------------------
+cd "/Users/atelloquijan/Desktop/Stepper feedback/debit-card-flip"
+
+
+2️⃣ Conectar con GitHub:
+----------------------------------------
+git remote add origin https://github.com/adrianatello28/TD_prueba1.git
+
+
+3️⃣ Cambiar a rama main:
+----------------------------------------
+git branch -M main
+
+
+4️⃣ Hacer push (subir todo):
+----------------------------------------
+git push -u origin main
+
+
+========================================
+✅ LISTO!
+========================================
+
+Tu proyecto estará en:
+https://github.com/adrianatello28/TD_prueba1
+
+========================================
+📝 SIGUIENTE PASO - RENDER
+========================================
+
+1. Ve a: https://render.com
+2. Click en "New +" → "Static Site"
+3. Conecta tu repo: TD_prueba1
+4. Configura:
+   - Build Command: npm install && npm run build
+   - Publish Directory: dist
+5. Click "Create Static Site"
+
+¡Tu app estará en línea en 2-5 minutos!
+========================================
+

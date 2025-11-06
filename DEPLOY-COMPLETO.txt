@@ -1,0 +1,100 @@
+========================================
+🚀 DESPLIEGUE COMPLETO - GITHUB + RENDER
+========================================
+
+📍 PASO 1: SUBIR A GITHUB
+========================================
+
+Abre Terminal y ejecuta estos comandos UNO POR UNO:
+
+cd "/Users/atelloquijan/Desktop/Stepper feedback/debit-card-flip"
+
+git remote add origin https://github.com/adrianatello28/TD_prueba1.git
+
+git branch -M main
+
+git push -u origin main
+
+✅ Cuando termine, tu código estará en:
+https://github.com/adrianatello28/TD_prueba1
+
+
+========================================
+🌐 PASO 2: DEPLOY EN RENDER
+========================================
+
+1. Ve a: https://render.com
+
+2. Si no tienes cuenta:
+   - Click en "Get Started"
+   - Sign Up with GitHub (recomendado)
+
+3. Una vez dentro del Dashboard:
+   - Click en "New +" (esquina superior derecha)
+   - Selecciona "Static Site"
+
+4. Conectar repositorio:
+   - Click en "Connect a repository"
+   - Busca "TD_prueba1"
+   - Click en "Connect"
+
+5. Configuración (IMPORTANTE):
+   ----------------------------------------
+   Name: td-prueba1
+   
+   Branch: main
+   
+   Build Command:
+   npm install && npm run build
+   
+   Publish Directory:
+   dist
+   ----------------------------------------
+
+6. Click en "Create Static Site"
+
+7. ESPERA 2-5 minutos mientras hace el build
+
+8. ✅ Render te dará una URL como:
+   https://td-prueba1.onrender.com
+
+
+========================================
+📱 TUS URLS FINALES
+========================================
+
+Local: http://localhost:5174
+GitHub: https://github.com/adrianatello28/TD_prueba1
+Render: https://td-prueba1.onrender.com (o similar)
+
+
+========================================
+🔄 DEPLOYS AUTOMÁTICOS
+========================================
+
+Cada vez que hagas cambios y subas a GitHub:
+
+git add .
+git commit -m "Tu mensaje"
+git push
+
+Render detectará el cambio y hará deploy automático.
+
+
+========================================
+❓ SI HAY PROBLEMAS
+========================================
+
+Error en Render:
+- Revisa los logs del build
+- Verifica que Build Command y Publish Directory estén correctos
+
+Error en GitHub push:
+- Puede pedir usuario y contraseña
+- Usa tu email y un Personal Access Token (no tu contraseña)
+
+
+========================================
+✨ ¡LISTO!
+========================================
+

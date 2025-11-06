@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import Lottie from 'lottie-react';
+import checkAnimation from '../assets/congrats-andes-x.json';
 import './CardFlip.css';
 
 const CardFlip = ({ isFlipped }) => {
@@ -19,12 +21,14 @@ const CardFlip = ({ isFlipped }) => {
           />
         </div>
 
-        {/* Reverso de la tarjeta */}
+        {/* Reverso de la tarjeta - Con Lottie */}
         <div className="card-face card-back">
-          <div className="card-success">
-            <svg className="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 6L9 17L4 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+          <div className="card-back-lottie">
+            <Lottie
+              animationData={checkAnimation}
+              loop={false}
+              style={{ width: '200px', height: '200px' }}
+            />
           </div>
         </div>
       </motion.div>
@@ -33,4 +37,3 @@ const CardFlip = ({ isFlipped }) => {
 };
 
 export default CardFlip;
-

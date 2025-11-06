@@ -1,17 +1,26 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
+import Lottie from 'lottie-react';
 import CardFlip from './CardFlip';
+import checkAnimation from '../assets/congrats-andes-x.json';
 import './DebitCardScreen.css';
 
 const DebitCardScreen = () => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleRequestCard = () => {
+    // Haptic feedback if available
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+    
+    console.log('🔄 Cambio de estado - Nuevo layout aplicado');
     setIsFlipped(true);
   };
 
   return (
     <div className="debit-card-screen">
-      {/* Status bar iOS */}
+      {/* Status bar iOS - Always visible */}
       <div className="status-bar-ios">
         <div className="status-left">
           <span className="time">9:30</span>
@@ -35,60 +44,119 @@ const DebitCardScreen = () => {
         </div>
       </div>
 
-      {/* Progress bar */}
-      <div className="progress-container">
-        <div className="progress-bar active"></div>
-        <div className="progress-bar"></div>
-      </div>
+      {/* Content container */}
+      <div className="content-container">
+        {/* Progress bar */}
+        <motion.div 
+          className="progress-container"
+          animate={{ opacity: isFlipped ? 0 : 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          <div className="progress-bar active"></div>
+          <div className="progress-bar"></div>
+        </motion.div>
 
-      {/* Main content */}
-      <div className="main-content">
-        {/* Card flip component */}
-        <CardFlip isFlipped={isFlipped} />
-
-        {/* Title */}
-        <h1 className="title">
-          Peça seu cartão de débito físico grátis
-        </h1>
-
-        {/* Address section */}
-        <div className="address-section">
-          <div className="address-content">
-            <div className="truck-icon">
-              <img src="/camion.png" alt="Camión de entrega" />
+        {/* Main content */}
+        <div className="main-content">
+          {/* Card flip component - Se oculta cuando isFlipped */}
+          {!isFlipped && (
+            <div className="card-and-feedback">
+              <CardFlip isFlipped={isFlipped} />
             </div>
-            <div className="address-details">
-              <div className="address-label">Endereço de entrega</div>
-              <div className="address-text">
-                Rua General Artigas, 67, Cobertura 01, Leblon, CEP: 2...
+          )}
+          
+          {/* Feedback completo - Aparece después del flip */}
+          {isFlipped && (
+            <motion.div
+              className="feedback-complete-container"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+            >
+              {/* Check animation */}
+              <div className="feedback-lottie">
+                <Lottie
+                  animationData={checkAnimation}
+                  loop={false}
+                  style={{ width: '96px', height: '96px' }}
+                />
+              </div>
+              
+              {/* Texto */}
+              <div className="feedback-text-container">
+                <h1 className="feedback-title">Listo!</h1>
+                <p className="feedback-message">
+                  Vamos te avisar quando o cartão for enviado
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Title */}
+          <motion.h1 
+            className="title"
+            animate={{ opacity: isFlipped ? 0 : 1, y: isFlipped ? -20 : 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+          >
+            Peça seu cartão de débito físico grátis
+          </motion.h1>
+
+          {/* Address section */}
+          <motion.div 
+            className="address-section"
+            animate={{ opacity: isFlipped ? 0 : 1, y: isFlipped ? -20 : 0 }}
+            transition={{ duration: 0.4, delay: 0.15 }}
+          >
+            <div className="address-content">
+              <div className="truck-icon">
+                <img src="/camion.png" alt="Camión de entrega" />
+              </div>
+              <div className="address-details">
+                <div className="address-label">Endereço de entrega</div>
+                <div className="address-text">
+                  Rua General Artigas, 67, Cobertura 01, Leblon, CEP: 2...
+                </div>
               </div>
             </div>
-          </div>
-          <button className="alter-button">Alterar</button>
+            <button className="alter-button">Alterar</button>
+          </motion.div>
+
+          {/* Terms text */}
+          <motion.div 
+            className="terms-text"
+            animate={{ opacity: isFlipped ? 0 : 1, y: isFlipped ? -20 : 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+          >
+            Ao continuar, você aceita os{' '}
+            <a href="#" className="terms-link">
+              Termos e Condições
+            </a>{' '}
+            do cartão de débito.
+          </motion.div>
+
+          {/* Action buttons */}
+          <motion.button 
+            className="request-button"
+            onClick={handleRequestCard}
+            disabled={isFlipped}
+            whileTap={{ scale: 0.95 }}
+            animate={{ opacity: isFlipped ? 0 : 1, scale: isFlipped ? 0.9 : 1 }}
+            transition={{ duration: 0.4, delay: 0.25 }}
+          >
+            Pedir cartão grátis
+          </motion.button>
+
+          <motion.button 
+            className="cancel-button"
+            animate={{ opacity: isFlipped ? 0 : 1, scale: isFlipped ? 0.9 : 1 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+          >
+            Agora não
+          </motion.button>
         </div>
-
-        {/* Terms text */}
-        <div className="terms-text">
-          Ao continuar, você aceita os{' '}
-          <a href="#" className="terms-link">
-            Termos e Condições
-          </a>{' '}
-          do cartão de débito.
-        </div>
-
-        {/* Action buttons */}
-        <button 
-          className="request-button"
-          onClick={handleRequestCard}
-          disabled={isFlipped}
-        >
-          Pedir cartão grátis
-        </button>
-
-        <button className="cancel-button">Agora não</button>
       </div>
 
-      {/* Bottom navigation iOS */}
+      {/* Bottom navigation iOS - Always visible */}
       <div className="bottom-navigation">
         <div className="home-indicator"></div>
       </div>
@@ -97,4 +165,3 @@ const DebitCardScreen = () => {
 };
 
 export default DebitCardScreen;
-

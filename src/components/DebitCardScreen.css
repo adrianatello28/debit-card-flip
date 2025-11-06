@@ -101,6 +101,62 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Card and feedback container */
+.card-and-feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Feedback complete container - Nuevo layout */
+.feedback-complete-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0;
+}
+
+/* Lottie del check en feedback */
+.feedback-lottie {
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Feedback text after flip */
+.feedback-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 8px;
+}
+
+.feedback-title {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1F2937;
+  margin: 0;
+}
+
+.feedback-message {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #6B7280;
+  max-width: 280px;
+  margin: 0;
 }
 
 /* Title */
@@ -255,6 +311,59 @@
   background-color: #1F2937;
   border-radius: 3px;
   opacity: 0.3;
+}
+
+/* Content container for transitions */
+.content-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.initial-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Success Screen Styles */
+.success-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40px;
+  text-align: center;
+}
+
+.success-lottie-container {
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-title {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1F2937;
+  margin: 24px 0 0 0;
+}
+
+.success-message {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #6B7280;
+  max-width: 280px;
+  margin: 8px 0 0 0;
+  text-align: center;
 }
 
 /* Responsive adjustments */

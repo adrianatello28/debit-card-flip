@@ -1,0 +1,57 @@
+===========================================
+📋 COMANDOS PARA COPIAR Y PEGAR
+===========================================
+
+🔹 PASO 1: Navegar al proyecto
+-------------------------------------------
+cd "/Users/atelloquijan/Desktop/Stepper feedback/debit-card-flip"
+
+
+🔹 PASO 2: Guardar cambios (uno por uno)
+-------------------------------------------
+git add .
+
+git commit -m "feat: Agregar microinteracciones completas con Lottie"
+
+
+🔹 PASO 3: Después de crear repo en GitHub
+-------------------------------------------
+(GitHub te dará estos comandos, cópialos de ahí)
+
+git remote add origin https://github.com/TU-USUARIO/debit-card-flip.git
+git branch -M main
+git push -u origin main
+
+
+🔹 CONFIGURACIÓN RENDER:
+-------------------------------------------
+Build Command:
+npm install && npm run build
+
+Publish Directory:
+dist
+
+
+===========================================
+✨ URLs IMPORTANTES
+===========================================
+
+Local: http://localhost:5174
+GitHub: https://github.com/new
+Render: https://render.com
+
+
+===========================================
+📝 ORDEN DE PASOS:
+===========================================
+
+1. Abre Terminal (Cmd + Espacio → "terminal")
+2. Copia comandos de PASO 1 y PASO 2
+3. Ve a GitHub y crea repositorio
+4. Copia comandos de PASO 3 de GitHub
+5. Ve a Render y conecta tu repositorio
+6. Configura con los valores de arriba
+7. ¡Espera el deploy!
+
+===========================================
+
